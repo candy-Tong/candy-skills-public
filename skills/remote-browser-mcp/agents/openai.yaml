@@ -1,0 +1,4 @@
+interface:
+  display_name: "Remote Browser MCP"
+  short_description: "Expose local Playwright MCP to a remote agent"
+  default_prompt: "Use $remote-browser-mcp to start local Playwright MCP and connect it to an agent on my remote machine."

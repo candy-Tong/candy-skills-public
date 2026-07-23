@@ -1,0 +1,4 @@
+interface:
+  display_name: "Remote Port Mapping"
+  short_description: "Persist local-to-remote SSH port mappings"
+  default_prompt: "Use $remote-port-mapping to expose a local service on my remote machine with login-start persistence and health checks."

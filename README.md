@@ -1,9 +1,10 @@
-# Remote Browser MCP Skills
+# Candy Skills
 
-这个仓库包含两个可复用的 Agent Skill，用于把本地服务稳定映射到远程开发机，
-以及让远程 Agent 通过 Playwright MCP 操作本地浏览器。
+这个仓库用于沉淀可以跨项目、跨机器复用的 Agent Skill、工作流、脚本和操作规范。
+仓库会持续增加新的 skill；远程端口映射和浏览器 MCP 是当前最先收录的一组能力，
+不代表仓库只服务于远程开发场景。
 
-## 包含的 Skills
+## 当前 Skills
 
 | Skill | 用途 |
 | --- | --- |
@@ -12,7 +13,7 @@
 
 `remote-browser-mcp` 依赖 `remote-port-mapping`，不会重复实现 SSH tunnel。
 
-## 工作链路
+## 当前浏览器链路
 
 ```text
 本地 Chrome 或 Playwright 默认浏览器
@@ -30,18 +31,18 @@
 安装仓库中的全部 skills：
 
 ```bash
-npx skills add candy-Tong/remote-browser-mcp-skills
+npx skills add candy-Tong/candy-skills-public
 ```
 
 只安装其中一个：
 
 ```bash
-npx skills add candy-Tong/remote-browser-mcp-skills \
+npx skills add candy-Tong/candy-skills-public \
   --skill remote-port-mapping
 ```
 
 ```bash
-npx skills add candy-Tong/remote-browser-mcp-skills \
+npx skills add candy-Tong/candy-skills-public \
   --skill remote-browser-mcp
 ```
 
@@ -99,7 +100,7 @@ URL: http://127.0.0.1:8931/mcp
 Skill 会在运行时检查所选 Agent 的实际版本、帮助信息和配置格式，不内置固定的
 Agent 配置文件列表。
 
-## 安全边界
+## 当前 Skills 的安全边界
 
 - Playwright MCP 固定使用 `127.0.0.1:8931`。
 - SSH reverse tunnel 默认只绑定远端 `127.0.0.1`。
@@ -109,7 +110,7 @@ Agent 配置文件列表。
 - 修改远端 Agent 前必须由用户明确指定 SSH 目标和 Agent。
 - 最终验证使用 MCP `initialize` 和真实工具调用，不以“端口正在监听”代替应用层验证。
 
-## 支持范围
+## 当前 Skills 的支持范围
 
 - 本地：macOS、Windows。
 - 远端：Linux/POSIX，需要 `bash`、`ss` 和 `curl`。
@@ -119,20 +120,23 @@ Agent 配置文件列表。
 
 ```text
 skills/
-  remote-port-mapping/
-    SKILL.md
-    agents/
-    references/
-    scripts/
-  remote-browser-mcp/
+  <skill-name>/
     SKILL.md
     agents/
     references/
     scripts/
 ```
 
-每个 skill 的入口说明位于对应的 `SKILL.md`，诊断和运行细节位于
-`references/`，macOS 与 Windows 的安装脚本位于 `scripts/`。
+每个 skill 的入口说明位于对应的 `SKILL.md`。按需使用 `references/`、
+`scripts/`、`templates/` 或其他必要目录，不为简单 skill 强行增加空目录。
+
+当前仓库内容：
+
+```text
+skills/
+  remote-port-mapping/
+  remote-browser-mcp/
+```
 
 ## 本地验证
 

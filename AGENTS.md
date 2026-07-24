@@ -2,17 +2,21 @@
 
 ## 目标
 
-这个仓库维护两个可安装的 Agent Skill：
+这是一个持续沉淀跨项目、跨机器复用能力的 Agent Skill 仓库。不要把整个仓库限定
+为某一个技术领域，也不要因为当前只包含两个 skill，就阻止新增其他类型的 skill。
+
+当前收录：
 
 - `remote-port-mapping`：负责通用、持久、可验证的 SSH reverse tunnel。
 - `remote-browser-mcp`：负责 Playwright MCP、本地浏览器和远端 Agent 配置。
 
-修改时优先保持现有 skill 的职责边界。浏览器 skill 必须复用端口映射 skill，
-不要复制 tunnel、watchdog 或远端监听检查逻辑。
+新增 skill 时应先明确它解决的独立问题、触发条件和完成标准。修改现有 skill 时
+优先保持职责边界；浏览器 skill 必须复用端口映射 skill，不要复制 tunnel、
+watchdog 或远端监听检查逻辑。
 
 ## 目录约定
 
-每个 skill 只能包含以下必要内容：
+典型 skill 结构：
 
 ```text
 skills/<skill-name>/
@@ -27,10 +31,11 @@ skills/<skill-name>/
 - `references/`：只放运行、诊断和故障归属等按需读取内容。
 - `scripts/`：放可重复执行的 macOS、Windows 和协议验证脚本。
 
-不要为单个 skill 增加独立 README、CHANGELOG 或其他重复文档。仓库级说明统一维护
-在根目录 `README.md`。
+只创建当前 skill 实际需要的目录，可以按需增加 `templates/`、`examples/` 或
+其他配套资源。不要为单个 skill 增加与 `SKILL.md` 重复的 README 或 CHANGELOG；
+仓库级索引和安装说明统一维护在根目录 `README.md`。
 
-## 不可破坏的契约
+## 当前 Skills 的不可破坏契约
 
 ### Remote Port Mapping
 
@@ -75,6 +80,7 @@ skills/<skill-name>/
 ## 编辑原则
 
 - 保持改动聚焦，不顺便重构无关代码。
+- 新增或删除 skill 时，同步更新根目录 `README.md` 的当前 skill 列表。
 - 优先延续已有脚本结构、任务命名和状态目录。
 - Bash 使用 `set -Eeuo pipefail`，PowerShell 使用严格模式和
   `$ErrorActionPreference = 'Stop'`。
@@ -122,6 +128,6 @@ git ls-files
 确认：
 
 - 没有日志、临时文件、备份或凭据进入暂存区。
-- 两个 skill 都能被 `npx skills add . --list` 发现。
+- 仓库中的所有 skill 都能被 `npx skills add . --list` 发现。
 - 文档中的端口、任务名、URL 和脚本参数与实现一致。
 - 公共仓库中没有本机绝对路径、真实 SSH host、内网 IP 或用户 token。
